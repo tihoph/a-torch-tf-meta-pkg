@@ -14,7 +14,7 @@ and **TensorRT** (only on Linux) for Python 3.10 and 3.11, supporting both **mac
 To install the package with development dependencies, use the following command:
 
 ```bash
-git clone https://github.com/audivir/a-torch-tf-meta-pkg
+git clone https://github.com/tihoph/a-torch-tf-meta-pkg
 cd a-torch-tf-meta-pkg
 pip install ".[dev]"
 ```
@@ -22,8 +22,8 @@ pip install ".[dev]"
 Alternatively, you can install directly from GitHub with:
 
 ```bash
-pip install git+https://github.com/audivir/a-torch-tf-meta-pkg
-curl -sL https://raw.githubusercontent.com/audivir/a-torch-tf-meta-pkg/main/postinstall.sh | bash
+pip install git+https://github.com/tihoph/a-torch-tf-meta-pkg
+curl -sL https://raw.githubusercontent.com/tihoph/a-torch-tf-meta-pkg/main/postinstall.sh | bash
 ```
 
 ### Post-Installation

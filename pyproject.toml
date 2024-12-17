@@ -21,8 +21,8 @@ dependencies = [
 ]
 
 [project.urls]
-homepage = "https://github.com/audivir/a-torch-tf-meta-pkg"
-repository = "https://github.com/audivir/a-torch-tf-meta-pkg"
+homepage = "https://github.com/tihoph/a-torch-tf-meta-pkg"
+repository = "https://github.com/tihoph/a-torch-tf-meta-pkg"
 
 [tool.setuptools]
 py-modules = ["a_torch_tf_meta_pkg"]
