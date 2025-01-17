@@ -1,63 +1,42 @@
 # a-torch-tf-meta-pkg
 This package provides compatible versions of **Torch**, **TensorFlow**, **CUDA** (only on Linux),
-and **TensorRT** (only on Linux) for Python 3.10 and 3.11, supporting both **macOS** and **Linux**.
+and **TensorRT** (only on Linux), supporting both **macOS** and **Linux**.
 
-| **Platform** | **Python Version** | **Torch Version** | **TensorFlow Version** | **CUDA Version** | **cuDNN Version** | **TensorRT Version** |
-|--------------|--------------------|-------------------|------------------------|------------------|-------------------|----------------------|
-| macOS        | 3.10               | 2.0.1             | 2.13.1                 | N/A              | N/A               | N/A                  |
-| macOS        | 3.11               | 2.0.1             | 2.13.1                 | N/A              | N/A               | N/A                  |
-| Linux        | 3.10               | 2.0.1             | 2.11.1                 | 11.7.99          | 8.5.0.96          | 7.2.2.3              |
-| Linux        | 3.11               | 2.0.1             | 2.13.1                 | 11.7.99          | 8.6.0.163         | 8.4.3.1              |
+- TensorFlow < 2.13 is only supported on Linux.
+- On Python 3.11, only TensorFlow >= 2.11 is supported.
+- On Python 3.12, only TensorFlow >= 2.16 is supported.
+- TensorRT is downloaded from https://pypi.nvidia.com
+- If PyTorch and TensorFlow require different cuDNN versions,
+TensorFlow uses the nvidia-cuda-cudnn-cu11 package from PyPI,
+whereas PyTorch uses nvidia-cuda-cudnn-cu12 package.
+- TensorRT is not used with TensorFlow ~= 2.18.0
+- PyTorch < 2.1 is only supported by TensorFlow < 2.12
+- TensorFlow ~= 2.13.0 has strict typing-extensions requirements. In this case, torch is installed separately.
 
-### Installation
+## Installation
 
 To install the package with development dependencies, use the following command:
 
 ```bash
-git clone https://github.com/tihoph/a-torch-tf-meta-pkg
-cd a-torch-tf-meta-pkg
-pip install ".[dev]"
+# for TensorFlow 2.14 and PyTorch 2.3.1
+pip install git+https://github.com/tihoph/a-torch-tf-meta-pkg@v214.231
 ```
 
-Alternatively, you can install directly from GitHub with:
+## Usage
 
 ```bash
-pip install git+https://github.com/tihoph/a-torch-tf-meta-pkg
-curl -sL https://raw.githubusercontent.com/tihoph/a-torch-tf-meta-pkg/main/postinstall.sh | bash
+# Sets the environment variable (LD_LIBRARY_PATH)
+# not necessary on macOS
+export LD_LIBRARY_PATH=$(python a_torch_tf_meta_pkg)
+python ...
+# or alternatively
+LD_LIBRARY_PATH=$(python a_torch_tf_meta_pkg) python ...
 ```
 
-### Post-Installation
-
-Run the post-installation script to set up the python environment:
+## Test
 
 ```bash
-./postinstall.sh          # Run the post-installation script
-# or
-./postinstall.sh --mute   # Run the script without NUMA errors
-```
-
-### Testing GPU Support
-
-Once the installation is complete, you can test GPU support by running:
-
-```bash
-if [[ $(uname) == "Linux" ]]; then
-    # Set the appropriate environment variables for Linux
-    LD_LIBRARY_PATH=$(python -m a_torch_tf_meta_pkg ld) \
-    XLA_FLAGS=$(python -m a_torch_tf_meta_pkg xla) \
-    pytest ./test_gpu.py -v
-else
-    # For macOS, just run the tests without extra environment variables
-    pytest ./test_gpu.py -v
-fi
-```
-
-### Caveats
-
-- **Torch** should be imported **before** **TensorFlow** in the same Python process. This is necessary to avoid compatibility issues between the two frameworks.
-
-To ensure compatibility, you can use the following function:
-
-```python
-a_torch_tf_meta_pkg.import_torch_before_tf()
+pip install pytest
+curl -sL https://raw.githubusercontent.com/tihoph/a-torch-tf-meta-pkg/refs/heads/main/test_gpu.py -o test_gpu.py
+LD_LIBRARY_PATH=$(python a_torch_tf_meta_pkg) pytest test_gpu.py
 ```

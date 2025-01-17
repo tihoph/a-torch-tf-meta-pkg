@@ -41,10 +41,10 @@ def get_torch_gpu_count() -> int:
     """Get the number of available GPUs for torch."""
     import torch
 
-    if sys.platform == "linux":
+    if sys.platform == "linux":  # type: ignore[unreachable,unused-ignore]
         return torch.cuda.device_count()
 
-    if sys.platform == "darwin":
+    if sys.platform == "darwin":  # type: ignore[unreachable,unused-ignore]
         return int(torch.backends.mps.is_available())
 
     raise AssertionError(f"Unsupported platform: {sys.platform}")

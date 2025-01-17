@@ -1,34 +1,6 @@
 [build-system]
-requires = ["setuptools>=42", "wheel"]
+requires = ["setuptools>=42", "wheel", "pip"]
 build-backend = "setuptools.build_meta"
-
-[project]
-name = "a-torch-tf-meta-pkg" # weird name to sort it to the top
-version = "0.0.1"
-requires-python = ">=3.10, <3.12" # 3.10 or 3.11
-authors = [{ name = "Tim Hörmann", email = "tim.hoermann@cup.uni-muenchen.de" }]
-description = "Torch and TensorFlow in compatible versions including CUDA."
-readme = "README.md"
-dependencies = [
-  # torch comes with the CUDA packages
-  "torch==2.0.1",
-  "numpy < 2.0",
-  "nvidia-cuda-nvcc-cu11; sys_platform == 'linux'",
-  "tensorflow >= 2.13, < 2.14; python_version >= '3.11'",
-  "tensorflow >= 2.11, < 2.12; python_version < '3.11' and sys_platform != 'darwin'",
-  "tensorflow >= 2.13, < 2.14; sys_platform == 'darwin'",
-  "tensorflow-metal; sys_platform == 'darwin'",
-]
-
-[project.urls]
-homepage = "https://github.com/tihoph/a-torch-tf-meta-pkg"
-repository = "https://github.com/tihoph/a-torch-tf-meta-pkg"
-
-[tool.setuptools]
-py-modules = ["a_torch_tf_meta_pkg"]
-
-[project.optional-dependencies]
-dev = ["pytest"]
 
 [tool.mypy]
 python_version = "3.10"
