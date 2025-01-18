@@ -240,8 +240,8 @@ if __name__ == "__main__":
     from setuptools.command.install import install
 
     meta_pkg = "a_torch_tf_meta_pkg"
-    tf = Version("{{ tf_version }}")
-    torch = Version("{{ torch_version }}")
+    tf = Version("2.10.0")
+    torch = Version("2.3.1")
     py = Version(".".join(platform.python_version_tuple()[:2]))
 
     meta_def = MetaDef(py, tf, torch)
